@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:11:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/23 19:05:42 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/25 00:38:29 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ int	main(int argc, char **argv, char **envp)
 	int		file_fd[2];
 	pid_t	pid;
 	int		*status;
-	
-	atexit(leak);
+
+	// atexit(leak);
 	if (argc != 5)
 		return (1);
 	file_fd[0] = open(argv[1], O_RDONLY);
 	file_fd[1] = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
 	pipe(fd);
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
 		execute_command(file_fd[0], fd[1], argv[2], envp);
 	}
 	wait(status);
-	
+
 	pid = fork();
 	if (pid == 0)
 	{

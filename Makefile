@@ -6,7 +6,7 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	gcc -o $@ $^ -lft -Llibft
+	$(CC) -o $@ $^ -lft -Llibft
 
 clean :
 	rm -rf $(OBJS)
