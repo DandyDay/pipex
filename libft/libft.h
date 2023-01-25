@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:50:22 by jinhchoi          #+#    #+#             */
-/*   Updated: 2022/12/23 14:32:57 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:16:39 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2048
-# endif
-
 char	*get_next_line(int fd);
-
-typedef struct s_buffer
-{
-	char	buf[BUFFER_SIZE];
-	int		idx;
-	int		readbyte;
-}				t_buffer;
-
-typedef struct s_string
-{
-	char	*str;
-	int		len;
-	int		size;
-}				t_string;
-
-typedef struct s_buflist
-{
-	int					fd;
-	struct s_buflist	*next;
-	t_buffer			*buf;
-}				t_buflist;
+int		ft_printf(const char *fmt, ...);
 
 #endif

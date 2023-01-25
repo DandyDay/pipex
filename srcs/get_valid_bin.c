@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:15:54 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/23 14:19:54 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:54:28 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ static char	**get_paths(char	**envp)
 char	*get_valid_bin(char **envp, char *binname)
 {
 	char	**paths;
+	char	*command;
 	char	*tmp;
 
 	paths = get_paths(envp);
 	while (*paths)
 	{
 		tmp = ft_strjoin(*paths, "/");
-		tmp = ft_strjoin(tmp, binname);
-		if (access(tmp, X_OK) == 0)
-			return (tmp);
+		command = ft_strjoin(tmp, binname);
+		free(tmp);
+		if (access(command, X_OK) == 0)
+			return (command);
 		paths++;
 	}
 	return (0);
