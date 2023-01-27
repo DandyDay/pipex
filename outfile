@@ -1,1 +1,4 @@
-      80
+Makefile
+a.out
+a.out.dSYM
+libft.a
