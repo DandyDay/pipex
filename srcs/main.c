@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:11:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/27 17:15:45 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:26:14 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,12 @@ int	main(int argc, char **argv, char **envp)
 	int			fd[2];
 	int			idx;
 	t_command	*list;
+	int			ret;
 
-	// if (argc != 5)
-	// 	return (1);
-	if (access(argv[1], R_OK) || (access(argv[argc - 1], W_OK) && !access(argv[argc - 1], F_OK)))
+	if (argc != 5)
+		return (1);
+	if (access(argv[1], R_OK) \
+		|| (access(argv[argc - 1], W_OK) && !access(argv[argc - 1], F_OK)))
 		exit(1);
 	fd[0] = open(argv[1], O_RDONLY);
 	fd[1] = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
@@ -81,8 +83,8 @@ int	main(int argc, char **argv, char **envp)
 		add_cmd_back(&list, new_command(argv[idx], envp));
 	while (list)
 	{
-		execute_command(list, fd, envp);
+		ret = execute_command(list, fd, envp);
 		list = list->next;
 	}
-	return (0);
+	return (ret);
 }
