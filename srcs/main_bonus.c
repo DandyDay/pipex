@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:11:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/29 23:15:38 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:20:19 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	int			ret;
 	t_command	*list;
 
-	if (argc != 5)
+	if (argc < 5)
 		return (1);
 	idx = 1;
 	list = NULL;
