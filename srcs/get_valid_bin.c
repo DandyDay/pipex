@@ -6,14 +6,15 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:15:54 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/27 13:20:30 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:28:47 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
+#include "pipex.h"
 
-static char	**get_paths(char	**envp)
+static char	**get_paths(char **envp)
 {
 	char	*raw_path;
 	char	**ret;
@@ -26,32 +27,33 @@ static char	**get_paths(char	**envp)
 	}
 	ret = ft_split(raw_path + 5, ':');
 	if (!ret)
-		exit(-1);
+		exit(1);
 	return (ret);
 }
 
 char	*get_valid_bin(char **envp, char *binname)
 {
 	char	**paths;
+	char	**path;
 	char	*command;
-	char	*tmp;
 
+	if (binname[0] == '/' && access(binname, X_OK) == 0)
+		return (binname);
+	else if (binname[0] == '/')
+		return (NULL);
 	paths = get_paths(envp);
-	if (binname[0] == '/')
+	path = paths;
+	while (*path)
 	{
-		if (access(binname, X_OK) == 0)
-			return (binname);
-		else
-			return (NULL);
-	}
-	while (*paths)
-	{
-		tmp = ft_strjoin(*paths, "/");
-		command = ft_strjoin(tmp, binname);
-		free(tmp);
+		command = ft_strsjoin(*path, "/", binname);
 		if (access(command, X_OK) == 0)
+		{
+			free_strings(paths);
 			return (command);
-		paths++;
+		}
+		free(command);
+		path++;
 	}
+	free_strings(paths);
 	return (NULL);
 }

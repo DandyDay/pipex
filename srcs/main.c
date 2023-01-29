@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:11:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/27 17:26:14 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:29:05 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,51 @@ int	execute_command(t_command *cmd, int *fd, char **envp)
 	return (ret);
 }
 
+void	leak(void)
+{
+	system("leaks pipex");
+}
+
+void	check_files(char *infile, char *outfile)
+{
+	if (access(infile, R_OK))
+		perror_exit(infile);
+	if (!access(outfile, F_OK) && access(outfile, W_OK))
+		perror_exit(outfile);
+}
+
+int	*open_files(char *infile, char *outfile)
+{
+	int	*fd;
+
+	fd = ft_calloc(2, sizeof(int));
+	fd[0] = open(infile, O_RDONLY);
+	if (fd[0] < 0)
+		perror_exit(infile);
+	fd[1] = open(outfile, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	if (fd[1] < 0)
+		perror_exit(outfile);
+	return (fd);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	int			fd[2];
+	int			*fd;
 	int			idx;
-	t_command	*list;
 	int			ret;
+	t_command	*list;
 
-	if (argc != 5)
-		return (1);
-	if (access(argv[1], R_OK) \
-		|| (access(argv[argc - 1], W_OK) && !access(argv[argc - 1], F_OK)))
-		exit(1);
-	fd[0] = open(argv[1], O_RDONLY);
-	fd[1] = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
+	// if (argc != 5)
+	// 	return (1);
+	// atexit(leak);
 	idx = 1;
 	list = NULL;
+	check_files(argv[1], argv[argc - 1]);
+	fd = open_files(argv[1], argv[argc - 1]);
 	while (++idx < argc - 1)
 		add_cmd_back(&list, new_command(argv[idx], envp));
-	while (list)
-	{
-		ret = execute_command(list, fd, envp);
-		list = list->next;
-	}
+	map_commands(&list, fd, envp, execute_command);
+	clear_cmds(&list);
+	free(fd);
 	return (ret);
 }

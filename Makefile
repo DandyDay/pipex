@@ -1,6 +1,6 @@
 NAME = pipex
 
-SRCS = srcs/get_valid_bin.c srcs/main.c srcs/commands.c
+SRCS = srcs/get_valid_bin.c srcs/main.c srcs/commands.c srcs/utils.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft/libft.a
