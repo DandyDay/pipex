@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_valid_bin.c                                    :+:      :+:    :+:   */
+/*   get_valid_bin_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:15:54 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/29 22:47:00 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:16:20 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static char	**get_paths(char **envp)
 {

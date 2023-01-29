@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:11:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/29 23:14:46 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:15:38 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include "libft.h"
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	__execute_command(t_command *cmd, int *fd, char **envp)
 {

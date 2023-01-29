@@ -1,20 +1,33 @@
 NAME = pipex
 
-SRCS = srcs/get_valid_bin.c srcs/main.c srcs/commands.c srcs/utils.c
-OBJS = $(SRCS:.c=.o)
+SRCS := srcs/get_valid_bin.c srcs/main.c srcs/commands.c srcs/utils.c
+BONUSSRCS := $(SRCS:.c=_bonus.c)
+
+OBJS := $(SRCS:.c=.o)
+BONUSOBJS := $(BONUSSRCS:.c=.o)
+
+ifndef BONUS
+	OBJECTS := $(OBJS)
+else
+	OBJECTS := $(BONUSOBJS)
+endif
 
 LIBFT = libft/libft.a
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(OBJS)
-	$(CC) -o $@ $^ -lft -Llibft
+$(NAME) : $(LIBFT) $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) -lft -Llibft
 
-$(LIBFT) : 
+$(LIBFT) :
 	make -C libft all
+
+bonus :
+	make BONUS=1 all
 
 clean :
 	rm -rf $(OBJS)
+	rm -rf $(BONUSOBJS)
 	make -C libft clean
 
 fclean : clean
