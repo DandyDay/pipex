@@ -6,14 +6,11 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:11:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/29 23:14:46 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:22:41 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include "libft.h"
 #include "pipex.h"
@@ -35,7 +32,7 @@ void	__execute_command(t_command *cmd, int *fd, char **envp)
 	else
 		dup2(fd[1], STDOUT_FILENO);
 	if (execve(cmd->argv[0], cmd->argv, envp) < 0)
-		exit(1);
+		perror_exit(cmd->argv[0]);
 }
 
 int	execute_command(t_command *cmd, int *fd, char **envp)

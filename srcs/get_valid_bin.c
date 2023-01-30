@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:15:54 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/01/29 22:47:00 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:47:41 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ char	*get_valid_bin(char **envp, char *binname)
 	char	**path;
 	char	*command;
 
-	if (binname[0] == '/' && access(binname, X_OK) == 0)
-		return (binname);
-	else if (binname[0] == '/')
+	if (binname[0] == '/' || binname[0] == '.')
 		return (binname);
 	paths = get_paths(envp);
 	path = paths;

@@ -1,6 +1,0 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include "libft.h"
-#include "pipex.h"
